@@ -1,0 +1,23 @@
+<%- include('./partials/head.ejs') %>
+<div class="container-fluid">
+	<div class="row">
+		<%- include('./partials/nav.ejs') %>
+		<div class="col-sm-10">
+			<h1><%= title %></h1>
+			<ul>
+				<% song_list.sort(function(a, b) {let textA = a.title.toUpperCase(); let
+				textB = b.title.toUpperCase(); return (textA < textB) ? -1 : (textA >
+				textB) ? 1 : 0;});%> <% song_list.forEach(song => {%> <% if(song.length != 0) {%>
+				<li>
+					<a href="<%=song.url%>"><%=song.title%></a>
+					(<%=song.name%>)
+				</li>
+				<%} else {%>
+				<li>There are no songs.</li>
+				<%}%> <%})%>
+			</ul>
+		</div>
+	</div>
+</div>
+
+<%- include('./partials/foot.ejs') %>

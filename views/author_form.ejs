@@ -1,0 +1,60 @@
+<%- include('./partials/head.ejs') %>
+<div class="container-fluid">
+	<div class="row">
+		<%- include('./partials/nav.ejs') %>
+		<div class="col-sm-10">
+			<h1><%= title%></h1>
+			<form action="" method="POST">
+				<div class="form-group">
+					<label class="mb-2" for="first_name">First Name: </label>
+					<input
+						class="mb-2 first_name form-control"
+						id="first_name"
+						type="text"
+						placeholder="First name (Christian)"
+						name="first_name"
+						value="<%= typeof author === 'undefined' ? '' : author.first_name %>"
+						required
+					/>
+					<label class="mb-2" for="family_name">Family Name: </label>
+					<input
+						class="mb-2 family_name form-control"
+						id="family_name"
+						type="text"
+						placeholder="Family name (Surname)"
+						name="family_name"
+						value="<%= typeof author === 'undefined' ? '' : author.family_name %>"
+						required
+					/>
+					<label class="mb-2" for="date_of_birth">Date of birth: </label>
+					<input
+						class="mb-2 date_of_birth form-control"
+						id="date_of_birth"
+						type="date"
+						name="date_of_birth"
+						value="<%= typeof author === 'undefined' ? '' : author.date_of_birth %>"
+					/>
+					<label class="mb-2" for="date_of_death">Date of death: </label>
+					<input
+						class="mb-2 date_of_death form-control"
+						id="date_of_death"
+						type="date"
+						name="date_of_death"
+						value="<%= typeof author === 'undefined' ? '' : author.date_of_death %>"
+					/>
+					<button class="btn btn-primary" type="submit">Submit</button>
+				</div>
+			</form>
+
+			<% if(typeof errors !== 'undefined') {%>
+			<ul>
+				<% errors.forEach(error => { %>
+				<li><%= error.msg%></li>
+				<%})%>
+			</ul>
+			<%}%>
+		</div>
+	</div>
+</div>
+
+<%- include('./partials/foot.ejs') %>

@@ -1,0 +1,23 @@
+<%- include('./partials/head.ejs') %>
+<div class="container-fluid">
+	<div class="row">
+		<%- include('./partials/nav.ejs') %>
+		<div class="col-sm-10">
+			<h1><%= title %></h1>
+
+			<ul>
+        <% if(category_list.length !== 0) { %>
+        <% category_list.forEach(category => { %>
+          <li>
+            <a href="<%= category.url%>"><%= category.name%></a>
+          </li>
+        <% })%>
+        <% }  else {%>
+          <li>There are no categories.</li>
+        <% } %>   
+			</ul>
+		</div>
+	</div>
+</div>
+
+<%- include('./partials/foot.ejs') %>

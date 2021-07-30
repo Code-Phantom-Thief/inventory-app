@@ -1,0 +1,37 @@
+<%- include('./partials/head.ejs') %>
+<div class="container-fluid">
+	<div class="row">
+		<%- include('./partials/nav.ejs') %>
+		<div class="col-sm-10">
+			<h1>Title : <%= title %></h1>
+			<img src="./images/uploads/<%=song.image%>" alt="song_image">
+			<p>
+				<strong>Author</strong>
+				<a href="<%= song.author.url %> "> <%= song.author.name %> </a>
+			</p>
+			<p>
+				<strong>Summary</strong>
+				<%= song.summary %>
+			</p>
+			<p>
+				<strong>Price</strong>
+				$<%= song.price %>
+			</p>
+			<p>
+				<strong>Stock</strong>
+				<%= song.stock %>
+			</p>
+			<p>
+				<strong>Category:</strong>
+				<%song.category.forEach((val, index) => { %>
+				<a href="<%= val.url%>"><%= val.name%></a>
+				<%})%>
+			</p>
+			<hr>
+			<p><a href="<%= song.url + '/delete' %> ">Delete Song</a></p>
+			<p><a href="<%= song.url + '/update' %> ">Update Song</a></p>
+		</div>
+	</div>
+</div>
+
+<%- include('./partials/foot.ejs') %>

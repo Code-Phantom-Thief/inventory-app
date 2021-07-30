@@ -1,0 +1,32 @@
+<%- include('./partials/head.ejs') %>
+<div class="container-fluid">
+	<div class="row">
+		<%- include('./partials/nav.ejs') %>
+		<div class="col-sm-10">
+			<h1><%= title %></h1>
+
+			<form action="" method="POST">
+				<div class="form-group mb-4">
+					<label for="name" class="mb-2">Category : </label>
+					<input
+						type="text"
+						class="name form-control"
+						placeholder="Rock, Country, Opera etc."
+						name="name"
+						value="<%= typeof category === 'undefined' ? '' : category.name %>"
+					/>
+				</div>
+        <button class="btn btn-primary">Submit</button>
+			</form>
+			<% if(typeof errors !== 'undefined') {%>
+			<ul>
+				<% errors.forEach(error => { %>
+				<li><%= error.msg%></li>
+				<%})%>
+			</ul>
+			<%}%>
+		</div>
+	</div>
+</div>
+
+<%- include('./partials/foot.ejs') %>

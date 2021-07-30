@@ -1,0 +1,31 @@
+<%- include('./partials/head.ejs') %>
+<div class="container-fluid">
+	<div class="row">
+		<%- include('./partials/nav.ejs') %>
+		<div class="col-sm-10">
+			<h1>Author : <%= author.name %></h1>
+			<p><%= author.lifespan %></p>
+
+			<div style="margin-left: 20px; margin-top: 20px">
+				<h4>Songs</h4>
+
+				<dl>
+					<% if(author_songs.length !== 0) { %> 
+          <% author_songs.forEach(song => { %>
+					<dt>
+						<a href="<%= song.url%>"><%= song.title%></a>
+					</dt>
+					<dd><%= song.summary %></dd>
+					<% })%> <% } else {%>
+					<li>This author has no songs.</li>
+					<% } %>
+				</dl>
+			</div>
+			<hr>
+			<p><a href="<%= author.url + '/delete' %> ">Delete Author</a></p>
+			<p><a href="<%= author.url + '/update' %> ">Update Author</a></p>
+		</div>
+	</div>
+</div>
+
+<%- include('./partials/foot.ejs') %>

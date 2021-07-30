@@ -1,0 +1,30 @@
+<%- include('./partials/head.ejs') %>
+<div class="container-fluid">
+	<div class="row">
+		<%- include('./partials/nav.ejs') %>
+		<div class="col-sm-10">
+			<h1>Category : <%= category.name %></h1>
+
+      <div style="margin-left: 20px; margin-top: 20px;">
+        <h4>Songs</h4>
+      </div>
+
+			<dl>
+        <% if(category_songs.length !== 0) { %>
+        <% category_songs.forEach(song => { %>
+          <dt>
+            <a href="<%= song.url%>"><%= song.title%></a>
+          </dt>
+            <dd><%= song.summary %></dd>
+        <% })%>
+        <% }  else {%>
+          <li>This category has no songs.</li>
+        <% } %>   
+			</dl>
+      <hr>
+        <p><a href="<%= category.url + '/delete' %> ">Delete Category</a></p>
+		</div>
+	</div>
+</div>
+
+<%- include('./partials/foot.ejs') %>

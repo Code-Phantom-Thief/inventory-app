@@ -1,0 +1,25 @@
+<%- include('./partials/head.ejs') %>
+<div class="container-fluid">
+	<div class="row">
+		<%- include('./partials/nav.ejs') %>
+		<div class="col-sm-10">
+			<h1>song : <%= song.name %></h1>
+        <p>Do you really want to delete this song?</p>
+        <form action="" method="POST">
+          <div class="form-group">
+            <input 
+              type="hidden" 
+              class="songid form-control"
+              name="songid"
+              required
+              value="<%=song._id%>"
+            >
+          </div>
+          <button class="btn btn-primary" type="submit">Delete</button>
+        </form>
+				<a href="<%= song.url%> " >Back To song List</a>
+		</div>
+	</div>
+</div>
+
+<%- include('./partials/foot.ejs') %>
