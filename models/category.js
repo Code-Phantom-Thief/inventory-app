@@ -8,7 +8,7 @@ const CategorySchema = new Schema({
     minLength: 3,
     maxLength: 100
     },
-});
+}, {timestamps: true});
 
 CategorySchema.virtual('url').get(function () {
   return '/catalog/category/' + this._id;

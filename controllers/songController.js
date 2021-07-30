@@ -3,6 +3,7 @@ const Author = require('../models/author');
 const Category = require('../models/category');
 const async = require('async');
 const { body, validationResult } = require('express-validator');
+const fs = require('fs');
 
 exports.index = (req, res) => {
 	async.parallel(
@@ -121,6 +122,7 @@ exports.song_create_post = [
 		.trim()
 		.isLength({ min: 1 })
 		.escape(),
+	body('image', 'Image must not be empty').escape(),
 	body('category.*').escape(),
 
 	// Process request after validation and sanitization.
@@ -128,6 +130,12 @@ exports.song_create_post = [
 		// Extract the validation errors from a request.
 		const errors = validationResult(req);
 
+		const obj = {
+			img: {
+				data: fs.readFileSync(`public/images/${req.file.filename}`),
+				contentType: 'image/jpeg/png',
+			},
+		};
 		// Create a Song object with escaped and trimmed data.
 		let song = new Song({
 			title: req.body.title,
@@ -136,6 +144,7 @@ exports.song_create_post = [
 			price: req.body.price,
 			stock: req.body.stock,
 			category: req.body.category,
+			image: obj.img,
 		});
 
 		if (!errors.isEmpty()) {
@@ -252,7 +261,7 @@ exports.song_update_get = function (req, res, next) {
 			if (err) {
 				return next(err);
 			}
-			if (results.song == null) {
+			if (results.book === null) {
 				const err = new Error('Song not found');
 				err.status = 404;
 				return next(err);
@@ -278,7 +287,7 @@ exports.song_update_get = function (req, res, next) {
 				}
 			}
 			res.render('song_form', {
-				title: 'Update song',
+				title: 'Update Song',
 				authors: results.authors,
 				categories: results.categories,
 				song: results.song,
@@ -297,12 +306,8 @@ exports.song_update_post = [
 		}
 		next();
 	},
-
 	// Validate and sanitise fields.
-	body('title', 'Title must not be empty.')
-		.trim()
-		.isLength({ min: 1 })
-		.escape(),
+	body('title', 'Title must not be empty').trim().isLength({ min: 1 }).escape(),
 	body('author', 'Author must not be empty.')
 		.trim()
 		.isLength({ min: 1 })
@@ -313,14 +318,14 @@ exports.song_update_post = [
 		.escape(),
 	body('price', 'Price must not be empty').trim().isLength({ min: 1 }).escape(),
 	body('stock', 'Stock must not be empty').trim().isLength({ min: 1 }).escape(),
+	body('image', 'Image must not be empty').escape(),
 	body('category.*').escape(),
 
 	// Process request after validation and sanitization.
 	(req, res, next) => {
 		// Extract the validation errors from a request.
-		const errors = validationResult(req);
+		// Create a Book object with escaped/trimmed data and old id.
 
-		// Create a Song object with escaped/trimmed data and old id.
 		let song = new Song({
 			title: req.body.title,
 			author: req.body.author,
@@ -329,13 +334,14 @@ exports.song_update_post = [
 			stock: req.body.stock,
 			category:
 				typeof req.body.category === 'undefined' ? [] : req.body.category,
-			_id: req.params.id,
+			image: req.body.image,
+			_id:req.params.id
 		});
 
 		if (!errors.isEmpty()) {
 			// There are errors. Render form again with sanitized values/error messages.
 
-			// Get all authors and categories for form.
+			// Get all authors and genres for form.
 			async.parallel(
 				{
 					authors: function (callback) {

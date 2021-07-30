@@ -33,7 +33,7 @@ const SongSchema = new Schema({
 			ref: 'Category',
 		},
 	],
-});
+}, {timestamps: true});
 
 SongSchema.virtual('url').get(function () {
 	return '/catalog/song/' + this._id;

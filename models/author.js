@@ -7,7 +7,7 @@ const AuthorSchema = new Schema({
 	family_name: { type: String, required: true, maxLength: 100 },
 	date_of_birth: { type: Date },
 	date_of_death: { type: Date },
-});
+}, {timestamps: true});
 
 // Virtual for author's full name
 AuthorSchema.virtual('name').get(function () {

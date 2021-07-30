@@ -10,7 +10,7 @@
 				textB) ? 1 : 0;});%> <% song_list.forEach(song => {%> <% if(song.length != 0) {%>
 				<li>
 					<a href="<%=song.url%>"><%=song.title%></a>
-					(<%=song.name%>)
+					<%=song.name%>
 				</li>
 				<%} else {%>
 				<li>There are no songs.</li>

@@ -8,14 +8,15 @@ const author_controller = require('../controllers/authorController');
 const category_controller = require('../controllers/categoryController');
 
 const storage = multer.diskStorage({
-  destination: function (req, file, cb) {
-    cb(null, '../public/images/uploads')
+  destination(req, file, cb) {
+    cb(null, 'public/images');
   },
-  filename: function (req, file, cb) {
-    cb(null, file.fieldname + '-' + Date.now())
-  }
-})
-const upload = multer({ storage: storage })
+  filename(req, file, cb) {
+    cb(null, Date.now() + path.extname(file.originalname));
+  },
+});
+
+const upload = multer({ storage });
 
 /// ********** Song ROUTES **********///
 // GET catalog home page.
@@ -34,7 +35,7 @@ router.get('/song/:id/delete', song_controller.song_delete_get);
 router.post('/song/:id/delete', song_controller.song_delete_post);
 
 // GET request to update song.
-router.get('/song/:id/update', song_controller.song_update_get);
+router.get('/song/:id/update', upload.single('image'), song_controller.song_update_get);
 
 // POST request to update song.
 router.post('/song/:id/update', song_controller.song_update_post);

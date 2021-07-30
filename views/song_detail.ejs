@@ -4,7 +4,11 @@
 		<%- include('./partials/nav.ejs') %>
 		<div class="col-sm-10">
 			<h1>Title : <%= title %></h1>
-			<img src="./images/uploads/<%=song.image%>" alt="song_image">
+			<img
+			class="image"
+			src="data:image/<%=song.image.contentType%>;base64,
+						<%=song.image.data.toString('base64')%>"
+		/>
 			<p>
 				<strong>Author</strong>
 				<a href="<%= song.author.url %> "> <%= song.author.name %> </a>
