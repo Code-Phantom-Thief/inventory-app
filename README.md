@@ -23,5 +23,3 @@ So, you can create New Category, New Author, New Song.
 You can delete New Category, New Author, New Song.
 
 You can update  Category, Author.
-
-(But I'm sorry. You can't update Song. If you try it, you can create new Song(lol). I am sure this is bug. But now, I don't know how to fix this bug. If I get more programming skill, I'll fixed in the future maybe( or give up(lol)))
